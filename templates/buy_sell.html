@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradePlay - Buy/Sell</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='buy_sell.css') }}">
+</head>
+<body>
+    {% include 'dashboard.html' %}
+
+    <div class="container">
+        <h1>Buy/Sell Stocks</h1>
+        <form action="/buy-sell" method="post">
+            <label for="stock">Stock Symbol:</label>
+            <select id="stock" name="stock" required>
+                <option value="">Select a stock symbol</option>
+                <option value="AAPL">Apple Inc. (AAPL)</option>
+                <option value="GOOGL">Alphabet Inc. (GOOGL)</option>
+                <option value="MSFT">Microsoft Corporation (MSFT)</option>
+                <option value="AMZN">Meta (formerly Facebook) Inc. (META)</option>
+                <option value="TSLA">Tesla Motors (TSLA)</option>
+                <option value="GS">The Goldman Sachs Group, Inc. (GS)</option>
+                <option value="ORCL">Oracle Corporation</option>
+                <option value="DELL">Dell Inc.</option>
+                <option value="SPX">The S&P 500 Index (SPX)</option>
+                <option value="HPQ">Hewlett-Packard Company (HPQ)</option>
+                <option value="ACN">Accenture Ltd.</option>
+                <option value="TTM">Tata Motors Ltd</option>
+                <option value="TTM">Tata Motors Ltd</option>
+                <option value="TTM">Tata Motors Ltd</option>
+               
+            </select><br>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" required><br>
+            <label for="action">Action:</label>
+            <select id="action" name="action" required>
+                <option value="buy">Buy</option>
+                <option value="sell">Sell</option>
+            </select><br>
+            <input type="submit" value="Submit">
+            {% if error %}
+            <p class="error">{{ error }}</p> <!-- Add error message placeholder -->
+            {% endif %}
+        </form>
+    </div>
+
+    <script>
+        // Fetch stock symbols from Flask route
+        fetch('/get-stock-symbols')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('stock');
+                data.symbols.forEach(symbol => {
+                    const option = document.createElement('option');
+                    option.text = symbol;
+                    option.value = symbol;
+                    select.add(option);
+                });
+            })
+            .catch(error => console.error('Error fetching stock symbols:', error));
+    </script>
+</body>
+</html>

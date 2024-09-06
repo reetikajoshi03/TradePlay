@@ -1,0 +1,35 @@
+<!-- templates/login.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Care - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+    {% include 'dashboard.html' %}
+
+    {% block content %}
+    <h1>Login</h1>
+    {% if message %}
+        <p style="color: red;">{{ message }}</p>
+    {% endif %}
+    <form action="/login" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <input type="submit" value="Login">
+    </form>
+
+    <!-- Add a link to the register page -->
+    <p>Don't have an account?
+    <a href="{{ url_for('register') }}">Register</a></p>
+
+    {% endblock %}
+</body>
+</html>

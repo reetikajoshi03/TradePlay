@@ -1,0 +1,83 @@
+/* static/register.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #00000033;
+}
+
+h1 {
+    color: #3d5eaf;
+    text-align: center;
+}
+
+h2 {
+    color: #3d5eaf;
+    text-align: center;
+}
+
+
+h3 {
+    color: #63eab6;
+    text-align: center;
+}
+
+h7 {
+    color: #333;
+
+    text-align: left;
+}
+
+
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #27a2d8;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+

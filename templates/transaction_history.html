@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='portfolio.css') }}">
+</head>
+<body>
+    {% include 'dashboard.html' %}
+    <div class="container">
+        <h1>Transaction History</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Stock</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total Value</th>
+                    <th>Action</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transaction_history %}
+                    <tr>
+                        <td>{{ transaction[0] }}</td>
+                        <td>{{ transaction[2] }}</td>
+                        <td>{{ transaction[3] }}</td>
+                        <td>{{ transaction[4] }}</td>
+                        <td>{{ transaction[5] }}</td>
+                        <td>{{ transaction[6] }}</td>
+                        <td>{{ transaction[7] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

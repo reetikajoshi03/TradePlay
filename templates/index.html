@@ -1,0 +1,33 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradePlay - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    {% include 'dashboard.html' %}
+
+    {% block content %}
+    {% if username %}
+    <h2>Current Prices:</h2>
+    <ul>
+        {% for symbol in symbols %}
+        <li>{{ symbol }}: ${{ current_prices[symbol] }}</li>
+        {% endfor %}
+    </ul>
+    <h1>Welcome, {{ username }}!</h1>
+    {% else %}
+    <h1>Welcome</h1>
+    {% endif %}
+    <h1>About Us</h1>
+    <p>Welcome to TradePlay, your go-to platform for virtual stock trading! At TradePlay, we believe in providing users with a realistic and engaging experience to learn about the stock market and practice trading without any financial risk.</p>
+    <p>Our platform offers a user-friendly interface where you can buy and sell virtual stocks, track your portfolio, and analyze stock data. Whether you're a novice investor looking to gain hands-on experience or an experienced trader honing your skills, TradePlay has something for everyone.</p>
+    <p>Join our community of traders today and start your virtual trading journey with TradePlay!</p>
+
+    {% endblock %}
+</body>
+</html>

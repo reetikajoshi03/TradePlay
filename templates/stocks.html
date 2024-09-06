@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradePlay - Stocks</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    {% include 'dashboard.html' %}
+    <h1>Stocks Page</h1>
+    <p>Select a stock to view its data:</p>
+    <form action="/stocks" method="post">
+        <select name="symbol">
+            <option value="">Select a stock symbol</option>
+            <option value="AAPL">Apple Inc. (AAPL)</option>
+            <option value="GOOGL">Alphabet Inc. (GOOGL)</option>
+            <option value="MSFT">Microsoft Corporation (MSFT)</option>
+            <option value="AMZN">Meta (formerly Facebook) Inc. (META)</option>
+            <option value="TSLA">Tesla Motors (TSLA)</option>
+            <option value="GS">The Goldman Sachs Group, Inc. (GS)</option>
+            <option value="ORCL">Oracle Corporation</option>
+            <option value="DELL">Dell Inc.</option>
+            <option value="SPX">The S&P 500 Index (SPX)</option>
+            <option value="HPQ">Hewlett-Packard Company (HPQ)</option>
+            <option value="ACN">Accenture Ltd.</option>
+            <option value="TTM">Tata Motors Ltd</option>
+        </select>
+        <button type="submit">Show Stock Data</button>
+    </form>
+    <div class="chart-container">
+        <div id="stock-chart"></div>
+        <script>
+            {% if data %}
+                // Extract data for candlestick chart
+                const candlestickData = {
+                    x: [],
+                    open: [],
+                    high: [],
+                    low: [],
+                    close: [],
+                    type: 'candlestick',
+                    xaxis: 'x',
+                    yaxis: 'y',
+                    name: '{{ symbol }}'
+                };
+
+                {% for item in data %}
+                    candlestickData.x.push('{{ item.datetime }}');
+                    candlestickData.open.push({{ item.o }});
+                    candlestickData.high.push({{ item.h }});
+                    candlestickData.low.push({{ item.l }});
+                    candlestickData.close.push({{ item.c }});
+                {% endfor %}
+
+                // Define layout options
+                const layout = {
+                    title: 'Stock Prices',
+                    xaxis: { title: 'Date', rangeslider: { visible: false } },
+                    yaxis: { title: 'Price' },
+                    autosize: true,
+                    margin: { l: 50, r: 50, b: 100, t: 100, pad: 4 },
+                    showlegend: true,
+                    dragmode: 'zoom',
+                    hovermode: 'closest',
+                    plot_bgcolor: '#f2f2f2',
+                    paper_bgcolor: '#f2f2f2',
+                    legend: { x: 0, y: 1.0, bgcolor: 'rgba(255, 255, 255, 0.5)', bordercolor: 'rgba(0, 0, 0, 0)' }
+                };
+        
+
+                // Plot the candlestick chart
+                Plotly.newPlot('stock-chart', [candlestickData], layout);
+            {% endif %}
+        </script>
+    </div>
+    <hr>
+    {% if data %}
+        <h2>Stock Data for {{ symbol }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Open</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Close</th>
+                    <th>Volume</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                    <tr>
+                        <td>{{ item.datetime }}</td>
+                        <td>{{ item.o }}</td>
+                        <td>{{ item.h }}</td>
+                        <td>{{ item.l }}</td>
+                        <td>{{ item.c }}</td>
+                        <td>{{ item.v }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% else %}
+        <p>No data available.</p>
+    {% endif %}
+</body>
+</html>
